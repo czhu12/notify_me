@@ -1,0 +1,62 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.is-large {
+  font-size: 1.8em;
+}
+
+.line-input {
+  background-color: transparent;
+  padding: 0 0 0.2em 0;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(0,0,0,0.2);
+}
+
+.line-input:invalid {
+  box-shadow: none;
+}
+
+.line-input:focus {
+  outline: none;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#query-input.is-invalid:focus {
+  outline: none;
+  outline-style:none;
+  box-shadow:none;
+}
+
+#reddit-form .suggestions span {
+  padding: 2px 6px;
+  margin-right: 5px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  cursor: pointer;
+}
+
+.main-form-input {
+  font-weight: 700;
+  padding: 0 5px 1em 0;
+  font-size: 2.5em;
+}
+
+#next-button {
+  margin-top: 0.5em;
+}
+
+.hide {
+  display: none;
+}
+
+.reddit-subreddits div {
+  margin: 5px 0;
+}
+
+.form-step {
+  margin-bottom: 40px;
+}
