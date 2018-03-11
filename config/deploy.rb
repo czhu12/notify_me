@@ -20,21 +20,21 @@ namespace :deploy do
   end
   after "deploy", "deploy:setup"
 
-  desc 'build docker instances for web and worker'
-  task :build do
+  desc 'build and start docker instances for web and worker'
+  task :stop do
     on roles :all do
-      execute "cd #{current_path} && docker-compose build"
+      execute "cd #{current_path} && docker-compose down"
     end
   end
-  after "deploy:setup", "deploy:build"
+  after "deploy:setup", "deploy:stop"
 
-  desc 'start docker instances that host web, worker, and redis'
+  desc 'build and start docker instances for web and worker'
   task :start do
     on roles :all do
-      execute "cd #{current_path} && docker-compose up"
+      execute "cd #{current_path} && docker-compose up --build"
     end
   end
-  after "deploy:build", "deploy:start"
+  after "deploy:stop", "deploy:start"
 end
 
 # Default branch is :master
