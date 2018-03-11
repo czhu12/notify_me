@@ -7,14 +7,33 @@ set :repo_url, "git@github.com:czhu12/notify_me.git"
 set :ssh_options, {
   forward_agent: true,
   auth_methods: ["publickey"],
-  keys: ["#{Dir.home}/.ssh/keypair.pem"]
+  keys: ["#{Dir.pwd}/.sshaws/keypair.pem"]
 }
+
+
+namespace :deploy do
+  desc 'build docker instances for web and worker'
+  task :build do
+    on roles :all do
+      execute "cd #{current_path} && docker-compose build"
+    end
+  end
+  after "deploy", "deploy:build"
+
+  desc 'start docker instances that host web, worker, and redis'
+  task :start do
+    on roles :all do
+      execute "cd #{current_path} && docker-compose up"
+    end
+  end
+  after "deploy:build", "deploy:start"
+end
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, "/var/www/my_app_name"
+set :deploy_to, "/home/ubuntu/notify_me"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -39,7 +58,7 @@ set :ssh_options, {
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 3
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure

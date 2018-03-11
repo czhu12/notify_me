@@ -1,4 +1,4 @@
-server 'ec2-54-213-224-136.us-west-2.compute.amazonaws.com', user: 'ubuntu', roles: %w{web worker}
+server 'ec2-54-186-78-10.us-west-2.compute.amazonaws.com', user: 'ubuntu', roles: %w{web worker}
 
 # server-based syntax
 # ======================
