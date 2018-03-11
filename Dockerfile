@@ -10,6 +10,14 @@ RUN apt-get update && apt-get install -y \
   nodejs \
   vim
 
+# Install node > 6.0
+RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+RUN /bin/bash nodesource_setup.sh
+RUN apt-get install nodejs
+
+# Install yarn to build webpack assets
+RUN npm install -g -y yarn
+
 # Configure the main working directory. This is the base 
 # directory used in any further RUN, COPY, and ENTRYPOINT 
 # commands.

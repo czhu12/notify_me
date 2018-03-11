@@ -7,6 +7,7 @@ services:
     volumes:
       - .:/app
     environment:
+      - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=1
       - SECRET_KEY_BASE=950b1c479cb7d9a090a3b1808bad670779de174f737ffb8616c0a2ff5032beb7c5bf3d73a1cbd2e4fc346ee167ddb64405b170acf3bfcd00deeef05fddc56f32
   redis:

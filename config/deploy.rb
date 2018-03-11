@@ -13,12 +13,20 @@ set :ssh_options, {
 
 namespace :deploy do
   desc 'build docker instances for web and worker'
+  task :setup do
+    on roles :all do
+      execute "mkdir #{current_path}/log && mkdir #{current_path}/tmp"
+    end
+  end
+  after "deploy", "deploy:setup"
+
+  desc 'build docker instances for web and worker'
   task :build do
     on roles :all do
       execute "cd #{current_path} && docker-compose build"
     end
   end
-  after "deploy", "deploy:build"
+  after "deploy:setup", "deploy:build"
 
   desc 'start docker instances that host web, worker, and redis'
   task :start do
