@@ -23,7 +23,7 @@ namespace :deploy do
   desc 'build and start docker instances for web and worker'
   task :stop do
     on roles :all do
-      execute "cd #{current_path} && docker-compose down"
+      execute "docker rm -f $(docker ps -aq)"
     end
   end
   after "deploy:setup", "deploy:stop"
