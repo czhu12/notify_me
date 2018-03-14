@@ -12,6 +12,15 @@ set :ssh_options, {
 
 
 namespace :deploy do
+  desc 'remove all docker volumes. This is necessary docker volumes ' \
+    'create files as root, therefore needs sudo'
+  task :cleanup do
+    on roles :all do
+      execute "sudo rm -rf #{current_path}/public"
+    end
+  end
+  before "deploy", "deploy:cleanup"
+
   desc 'build docker instances for web and worker'
   task :setup do
     on roles :all do
