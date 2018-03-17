@@ -193,7 +193,7 @@ function createListenerFailure(error) {
   }
 }
 
-export function submitCreateListener() {
+export function submitCreateListener(stripeToken) {
   return (dispatch, getState) => {
     const state = getState();
     const redditWatchers = _.flatten(state.p2.subreddits.map(subreddit => {
@@ -221,10 +221,10 @@ export function submitCreateListener() {
         phone_number: state.p3.phoneNumberString,
         social_watchers: redditWatchers.concat(hackerNewsWatchers),
       },
+      stripe_token: stripeToken,
       authenticity_token: csrfToken,
     }
 
-    console.log(body);
     return fetch(`/listeners`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },

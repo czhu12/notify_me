@@ -4,6 +4,7 @@
     <title>Notify Me</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="stripe_key" content="<%= Rails.configuration.stripe[:publishable_key] %>">
 
     <%= csrf_meta_tags %>
 
@@ -13,8 +14,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
-
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.2.1/lodash.min.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"

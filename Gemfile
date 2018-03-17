@@ -32,6 +32,7 @@ gem 'facebook-messenger', '~> 1.0.0'
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
 
+gem 'stripe', '~> 3.11.0'
 gem 'kaminari', '~> 1.1.1'
 gem 'mandrill-api', '~> 1.0.53'
 gem 'inky-rb', '~> 1.3.7.2', require: 'inky'

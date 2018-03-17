@@ -11,6 +11,9 @@ module Notifyme
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
     config.autoload_paths << "#{Rails.root}/lib"
+    # Messenger Bot config
+    config.paths.add File.join("app", "bot"), glob: File.join("**","*.rb")
+    config.autoload_paths += Dir[Rails.root.join("app", "bot", "*")]
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

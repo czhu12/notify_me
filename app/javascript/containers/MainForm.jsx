@@ -16,7 +16,19 @@ const mapDispatchToProps = dispatch => ({
     dispatch(nextFormStepAndValidate());
   },
   submitForm: () => {
-    dispatch(submitCreateListener())
+    var handler = StripeCheckout.configure({
+      key: $('meta[name=stripe_key]').attr("content"),
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      token: (token) => {
+        dispatch(submitCreateListener(token));
+      }
+    });
+    handler.open({
+      name: 'Notify Me',
+      description: '2 widgets',
+      amount: 500
+    });
   },
 });
 

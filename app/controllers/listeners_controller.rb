@@ -15,6 +15,7 @@ class ListenersController < ApplicationController
     all_valid = social_watchers.all? { |watcher| watcher.valid? }
     if all_valid and listener.save
       social_watchers.each { |w| w.save }
+      charge(stripe_params[:email], stripe_params[:id])
       render :json => { success: true, listener: listener }
     else
       puts listener.errors.to_a
@@ -24,14 +25,37 @@ class ListenersController < ApplicationController
   end
 
   def index
-    @listener = Listener.new
   end
 
   def show
     @listener = Listener.find_by_token(params[:id])
   end
 
+  def stripe_params
+    params.require(:stripe_token).permit(:id, :email, :client_ip)
+  end
+
   def listener_params
     params.require(:listener).permit(:phone_number, :email, :query, :social_watchers)
+  end
+
+  def charge(email, token)
+    amount = 500 # 5 Dollars
+
+    customer = Stripe::Customer.create(
+      :email => email,
+      :source  => token
+    )
+
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => amount,
+      :description => 'Rails Stripe customer',
+      :currency    => 'usd'
+    )
+
+    return true
+  rescue Stripe::CardError => e
+    return false
   end
 end
