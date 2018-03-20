@@ -32,7 +32,6 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && bundle install --jobs 20 --retry 5
 
 # Copy the main application.
-COPY /home/ubuntu/.env ./.env
 COPY . ./
 
 # Expose port 3000 to the Docker host, so we can access it 
