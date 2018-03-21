@@ -17,6 +17,8 @@ import {
   CREATE_LISTENER_SUCCESS,
   CREATE_LISTENER_FAILURE,
   VALIDATION_FAILED,
+  OPENED_MODAL,
+  CLOSED_MODAL,
 } from './constants/actionTypes';
 
 function hasValidationErrors({p1, p2, p3, mainForm}) {
@@ -234,7 +236,8 @@ export function submitCreateListener(stripeToken) {
       error => dispatch(createListenerFailure(error)),
     ).then(json => {
       dispatch(createListenerSuccess(json));
-      location.href = `/listeners/${json.listener.token}`
+      dispatch(openModal());
+      //location.href = `/listeners/${json.listener.token}`
     });
   }
 }
@@ -252,4 +255,12 @@ export function submitSubredditSuggestions() {
       json => dispatch(subredditSuggestionsSuccess(json))
     );
   }
+}
+
+export function openModal() {
+  return { type: OPENED_MODAL }
+}
+
+export function closeModal() {
+  return { type: CLOSED_MODAL }
 }

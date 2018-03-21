@@ -24,6 +24,7 @@ namespace :deploy do
   desc 'build docker instances for web and worker'
   task :setup do
     on roles :all do
+      upload! '.env', "#{current_path}/.env"
       execute "mkdir #{current_path}/log && mkdir #{current_path}/tmp"
     end
   end
@@ -32,6 +33,7 @@ namespace :deploy do
   desc 'build and start docker instances for web and worker'
   task :stop do
     on roles :all do
+      execute "docker network prune -f"
       execute "docker rm -f $(docker ps -aq) || true"
     end
   end

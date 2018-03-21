@@ -60,3 +60,11 @@ body {
 .form-step {
   margin-bottom: 40px;
 }
+
+.white {
+  color: white;
+}
+.center {
+  margin: 0 auto;
+  text-align: center;
+}

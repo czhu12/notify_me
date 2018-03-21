@@ -6,6 +6,7 @@ import { nextFormStepAndValidate, submitCreateListener } from 'actions';
 import P1Form from 'containers/P1Form'
 import P2Form from 'containers/P2Form'
 import P3Form from 'containers/P3Form'
+import CompletedForm from 'containers/CompletedForm'
 
 const mapStateToProps = state => ({
   formStep: state.mainForm.formStep,
@@ -46,24 +47,27 @@ function MainForm({
   let buttonText = formStep == 3 ? "Submit" : "Continue";
   let buttonFn = formStep == 3 ? submitForm : changeForm;
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-10 offset-md-1">
-          <div className="form-group">
-            <P1Form className={(formStep == 0 || formStep == 3) ? "form-step" : "form-step hide"} />
-            <P2Form className={(formStep == 1 || formStep == 3) ? "form-step" : "form-step hide"} />
-            <P3Form className={(formStep == 2 || formStep == 3) ? "form-step" : "form-step hide"} />
+    <div>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-10 offset-md-1">
+            <div className="form-group">
+              <P1Form className={(formStep == 0 || formStep == 3) ? "form-step" : "form-step hide"} />
+              <P2Form className={(formStep == 1 || formStep == 3) ? "form-step" : "form-step hide"} />
+              <P3Form className={(formStep == 2 || formStep == 3) ? "form-step" : "form-step hide"} />
 
-            <button
-              id="next-button"
-              className="btn btn-lg btn-success float-right"
-              onClick={buttonFn}
-            >
-              {buttonText}
-            </button>
+              <button
+                id="next-button"
+                className="btn btn-lg btn-success float-right"
+                onClick={buttonFn}
+              >
+                {buttonText}
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      <CompletedForm />
     </div>
   );
 }

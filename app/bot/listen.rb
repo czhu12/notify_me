@@ -3,15 +3,19 @@
 require 'facebook/messenger'
 include Facebook::Messenger
 
-#Facebook::Messenger::Subscriptions.subscribe(access_token: ENV['ACCESS_TOKEN'])
+Facebook::Messenger::Subscriptions.subscribe(access_token: ENV['ACCESS_TOKEN'])
+
+# message.id          # => 'mid.1457764197618:41d102a3e1ae206a38'
+# message.sender      # => { 'id' => '1873221589418801' }
+# message.sent_at     # => 2016-04-22 21:30:36 +0200
+# message.text        # => 'Hello, bot!'
+# Bot.deliver({recipient: { 'id' => '1873221589418801' }, message: {text: 'hello world!!!!!'}}, access_token: ENV["ACCESS_TOKEN"])
 
 Bot.on :message do |message|
-  request_message = message.text
-  uid = message.sender['id']
-  User.find_or_create_by(uid: uid)  
-  unless request_message.nil?
-    chat_service = ChatService.new(uid)
-    chat_service.execute(request_message)
-    FacebookMessengerService.deliver(uid, chat_service.response_message)
-  end
+  Bot.deliver({
+    recipient: message.sender,
+    message: {
+      text: message.text
+    }
+  }, access_token: ENV["ACCESS_TOKEN"])
 end

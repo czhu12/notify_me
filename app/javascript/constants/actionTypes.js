@@ -29,3 +29,7 @@ export const CREATE_LISTENER_FAILURE = 'CREATE_LISTENER_FAILURE';
 
 // Validation Failed
 export const VALIDATION_FAILED = 'VALIDATION_FAILED';
+
+// Completion Modal
+export const OPENED_MODAL = 'OPENED_MODAL';
+export const CLOSED_MODAL = 'CLOSED_MODAL';

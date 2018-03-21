@@ -14,6 +14,8 @@ import {
   SUBREDDIT_SUGGESTIONS_SUCCESS,
   SUBREDDIT_SUGGESTIONS_FAILURE,
   VALIDATION_FAILED,
+  OPENED_MODAL,
+  CLOSED_MODAL,
 } from 'constants/actionTypes';
 
 import { combineReducers } from 'redux';
@@ -140,10 +142,28 @@ function validationReducer(state={
   }
 }
 
+function completionModalReducer(state={
+  modalOpen: false,
+}, action) {
+  switch(action.type) {
+    case OPENED_MODAL:
+      return Object.assign({}, state, {
+        modalOpen: true,
+      });
+    case CLOSED_MODAL:
+      return Object.assign({}, state, {
+        modalOpen: false,
+      });
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   mainForm: mainFormReducer,
   p1: p1Reducer,
   p2: p2Reducer,
   p3: p3Reducer,
   validation: validationReducer,
+  completionModal: completionModalReducer,
 })
