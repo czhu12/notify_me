@@ -4,6 +4,7 @@ services:
     build: .
     ports:
       - "3000:3000"
+    container_name: web
     environment:
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=1
@@ -14,3 +15,4 @@ services:
     image: "redis:alpine"
     ports:
       - "6379:6379"
+    container_name: redis
