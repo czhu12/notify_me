@@ -3,10 +3,10 @@ class FetchContentWorker
   include RateLimitHelper
 
   def perform(args)
-    watcher = get_watcher(args[:social_watcher_id])
+    watcher = get_watcher(args['social_watcher_id'])
 
-    rate_limit_key = args[:rate_limit_key]
-    rate_limit_time = args[:rate_limit_time]
+    rate_limit_key = args['rate_limit_key']
+    rate_limit_time = args['rate_limit_time']
 
     rate_limited(rate_limit_key, rate_limit_time) do
       results = watcher.fetch_data
@@ -21,6 +21,6 @@ class FetchContentWorker
   end
 
   def get_watcher(args)
-    SocialWatcher.find(args[:social_watcher_id])
+    SocialWatcher.find(args['social_watcher_id'])
   end
 end
