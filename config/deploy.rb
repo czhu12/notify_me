@@ -46,6 +46,13 @@ namespace :deploy do
     end
   end
   after "deploy:stop", "deploy:start"
+
+  desc 'install crontab in docker container'
+  task :install_cron do
+    on roles :all do
+      execute "docker exec web bundle exec whenever --update-crontab -i config/schedule.rb"
+    end
+  end
 end
 
 # Default branch is :master
@@ -77,6 +84,7 @@ set :deploy_to, "/home/ubuntu/notify_me"
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
+
 set :keep_releases, 3
 
 # Uncomment the following to require manually verifying the host key before first deploy.
