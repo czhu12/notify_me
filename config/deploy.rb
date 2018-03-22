@@ -50,7 +50,7 @@ namespace :deploy do
   desc 'install crontab in docker container'
   task :install_cron do
     on roles :all do
-      execute "docker exec web bundle exec whenever --update-crontab -i config/schedule.rb"
+      execute "docker exec web whenever --update-crontab -i config/schedule.rb"
     end
   end
 end
