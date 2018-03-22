@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
   build-essential \ 
   supervisor \ 
   nodejs \
-  vim
+  vim \
+  cron
 
 # Install node > 6.0
 RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
