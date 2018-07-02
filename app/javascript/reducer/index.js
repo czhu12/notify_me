@@ -1,6 +1,7 @@
 import {
   NEXT_FORM_STEP,
   CHANGE_QUERY_STRING,
+  CHANGE_TEST_TEXT_STRING,
   CHANGE_HACKER_NEWS_CHECK,
   CHANGE_REDDIT_CHECK,
   CHANGE_SUBREDDIT_STRING,
@@ -16,6 +17,11 @@ import {
   VALIDATION_FAILED,
   OPENED_MODAL,
   CLOSED_MODAL,
+  OPENED_HELP_MODAL,
+  CLOSED_HELP_MODAL,
+  QUERY_CONTENT_MATCH_CHECK_REQUEST,
+  QUERY_CONTENT_MATCH_CHECK_SUCCESS,
+  QUERY_CONTENT_MATCH_CHECK_FAILURE,
 } from 'constants/actionTypes';
 
 import { combineReducers } from 'redux';
@@ -35,11 +41,31 @@ function mainFormReducer(state={
 
 function p1Reducer(state={
   queryString: '',
+  testTextString: '',
+  queryContentMatch: false,
+  queryContentMatchFetching: false,
 }, action) {
   switch(action.type) {
     case CHANGE_QUERY_STRING:
       return Object.assign({}, state, {
         queryString: action.queryString,
+      });
+    case CHANGE_TEST_TEXT_STRING:
+      return Object.assign({}, state, {
+        testTextString: action.testTextString,
+      });
+    case QUERY_CONTENT_MATCH_CHECK_REQUEST:
+      return Object.assign({}, state, {
+        queryContentMatchFetching: true,
+      });
+    case QUERY_CONTENT_MATCH_CHECK_SUCCESS:
+      return Object.assign({}, state, {
+        queryContentMatchFetching: false,
+        queryContentMatch: action.match,
+      });
+    case QUERY_CONTENT_MATCH_CHECK_FAILURE:
+      return Object.assign({}, state, {
+        queryContentMatchFetching: false,
       });
     default:
       return state;
@@ -142,8 +168,9 @@ function validationReducer(state={
   }
 }
 
-function completionModalReducer(state={
+function modalReducer(state={
   modalOpen: false,
+  helpModalOpen: false,
 }, action) {
   switch(action.type) {
     case OPENED_MODAL:
@@ -153,6 +180,14 @@ function completionModalReducer(state={
     case CLOSED_MODAL:
       return Object.assign({}, state, {
         modalOpen: false,
+      });
+    case OPENED_HELP_MODAL:
+      return Object.assign({}, state, {
+        helpModalOpen: true,
+      });
+    case CLOSED_HELP_MODAL:
+      return Object.assign({}, state, {
+        helpModalOpen: false,
       });
     default:
       return state;
@@ -165,5 +200,5 @@ export default combineReducers({
   p2: p2Reducer,
   p3: p3Reducer,
   validation: validationReducer,
-  completionModal: completionModalReducer,
+  modalReducer: modalReducer,
 })

@@ -24,7 +24,7 @@ class Watchers::HackerNews::HackerNewsRequest
 
   def self.build_request(list)
     raise StandardError unless LISTS.include?(list)
-    HackerNewsRequest.new(list)
+    Watchers::HackerNews::HackerNewsRequest.new(list)
   end
 
   def initialize(list)
@@ -36,17 +36,20 @@ class Watchers::HackerNews::HackerNewsRequest
     items = JSON.parse(response.body)
     urls = items.map { |item_id| "https://hacker-news.firebaseio.com/v0/item/#{item_id}.json" }
     responses = ParallelRequests.fetch_parallel(urls)
-    responses.map do |url, response|
+    stories = responses.map do |url, response|
       if response.code >= 400
         # TODO: log to datadog
       end
 
       body = JSON.parse(response.body)
-      if body['type'] == TYPE_STORY
-        body = Watchers::HackerNews::Story.parse(body)
-      elsif body['type'] == TYPE_COMMENT
-        comment = Watchers::HackerNews::Comment.parse(body)
-      end
+      story = Watchers::HackerNews::Story.parse(body)
+      story
     end
+
+    stories = stories.select { |s| s }
+    stories.each do |story|
+      story.comments
+    end
+    stories
   end
 end

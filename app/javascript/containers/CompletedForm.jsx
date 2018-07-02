@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { closeModal } from 'actions';
 
 const mapStateToProps = state => ({
-  modalOpen: state.completionModal.modalOpen,
+  modalOpen: state.modalReducer.modalOpen,
   queryString: state.p1.queryString,
 });
 
@@ -26,7 +26,7 @@ function CompletedForm({
   closeModal,
 }) {
   if (modalOpen) {
-    $("#completion-modal").modal('show');
+    $("#completion-modal").modal({backdrop: 'static', keyboard: false});
   } else {
     $("#completion-modal").modal('hide');
   }
@@ -37,7 +37,7 @@ function CompletedForm({
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title center"><i className="fa fa-check-circle-o white"></i></h1>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+            <button onClick={closeModal} type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>

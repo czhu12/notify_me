@@ -8,9 +8,12 @@ class ParallelRequests
         until queue.empty?
           # This will remove the first object from @queue
           url = queue.shift
-          request = HTTParty.get(url)
+          request = HTTParty.get(url, timeout: 10)
           semaphore.synchronize do
             results[url] = request
+            if results.length % 10 == 0
+              Rails.logger.debug("Downloaded #{results.size} / #{urls.size}")
+            end
           end
         end
       end

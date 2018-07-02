@@ -58,6 +58,7 @@ class SocialWatcher < ApplicationRecord
 
   def fetch_data
     if source == HACKER_NEWS_STORY
+      # This should be cached
       Watchers::HackerNews::HackerNewsRequest.build_request('topstories').request
     elsif source == REDDIT_POST
       Watchers::Reddit::RedditRequest.build_request(

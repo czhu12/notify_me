@@ -10,5 +10,6 @@ Rails.application.routes.draw do
 
   get 'callbacks/messenger', to: 'callbacks#messenger'
   post 'callbacks/messenger', to: 'callbacks#messenger'
+  post '/listeners/matches_query', to: 'listeners#matches_query'
   root to: 'listeners#index'
 end

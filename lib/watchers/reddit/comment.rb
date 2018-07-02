@@ -16,7 +16,7 @@ class Watchers::Reddit::Comment
     @id = data['id']
   end
 
-  def text
+  def matchable_text
     body
   end
 

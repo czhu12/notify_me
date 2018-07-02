@@ -36,7 +36,7 @@ class Watchers::HackerNews::Comment
     }
   end
 
-  def text
+  def matchable_text
     text
   end
 end

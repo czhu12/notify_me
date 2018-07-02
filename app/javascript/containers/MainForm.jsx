@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
     });
     handler.open({
       name: 'Notify Me',
-      description: '2 widgets',
+      description: 'Never miss another opportunity',
       amount: 500
     });
   },

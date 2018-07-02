@@ -41,6 +41,8 @@ class Watchers::HackerNews::Story
     @title = data['title']
     @type = data['type']
     @time = data['time']
+    @text = data['text']
+    @url = data['url']
   end
 
   def to_hash
@@ -49,14 +51,34 @@ class Watchers::HackerNews::Story
       author: @author,
       kids: @kids,
       score: @score,
-      text: @text,
       title: @title,
       type: @type,
       time: @time,
+      text: @text,
+      url: @url,
     }
   end
 
-  def text
-    "#{title} #{text}"
+  def matchable_text
+    if @text
+      return "#{title} #{@text}"
+    else
+      return "#{title} #{@url}"
+    end
+  end
+
+  def fetch_comments
+    return [] unless kids
+    urls = kids.map { |item_id| "https://hacker-news.firebaseio.com/v0/item/#{item_id}.json" }
+    requests = ParallelRequests.fetch_parallel(urls)
+    requests.map do |url, response|
+      body = JSON.parse(response.body)
+      comment = Watchers::HackerNews::Comment.parse(body)
+      comment
+    end
+  end
+
+  def comments
+    @comments ||= fetch_comments
   end
 end

@@ -3,7 +3,7 @@
 require 'facebook/messenger'
 include Facebook::Messenger
 
-Facebook::Messenger::Subscriptions.subscribe(access_token: ENV['ACCESS_TOKEN'])
+#Facebook::Messenger::Subscriptions.subscribe(access_token: ENV['ACCESS_TOKEN'])
 
 # message.id          # => 'mid.1457764197618:41d102a3e1ae206a38'
 # message.sender      # => { 'id' => '1873221589418801' }

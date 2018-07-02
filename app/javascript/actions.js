@@ -1,6 +1,7 @@
 import {
   NEXT_FORM_STEP,
   CHANGE_QUERY_STRING,
+  CHANGE_TEST_TEXT_STRING,
   CHANGE_HACKER_NEWS_CHECK,
   CHANGE_REDDIT_CHECK,
   CHANGE_SUBREDDIT_STRING,
@@ -19,6 +20,11 @@ import {
   VALIDATION_FAILED,
   OPENED_MODAL,
   CLOSED_MODAL,
+  OPENED_HELP_MODAL,
+  CLOSED_HELP_MODAL,
+  QUERY_CONTENT_MATCH_CHECK_REQUEST,
+  QUERY_CONTENT_MATCH_CHECK_SUCCESS,
+  QUERY_CONTENT_MATCH_CHECK_FAILURE,
 } from './constants/actionTypes';
 
 function hasValidationErrors({p1, p2, p3, mainForm}) {
@@ -90,6 +96,13 @@ export function changeQueryString(queryString) {
   return {
     queryString,
     type: CHANGE_QUERY_STRING,
+  }
+}
+
+export function changeTestTextString(testTextString) {
+  return {
+    testTextString,
+    type: CHANGE_TEST_TEXT_STRING,
   }
 }
 
@@ -263,4 +276,60 @@ export function openModal() {
 
 export function closeModal() {
   return { type: CLOSED_MODAL }
+}
+
+export function openHelpModal() {
+  return { type: OPENED_HELP_MODAL }
+}
+
+export function closeHelpModal() {
+  return { type: CLOSED_HELP_MODAL }
+}
+
+function queryContentMatchCheckRequest() {
+  return {
+    type: QUERY_CONTENT_MATCH_CHECK_REQUEST
+  }
+}
+
+function queryContentMatchCheckSuccess(response) {
+  return {
+    match: response.match,
+    type: QUERY_CONTENT_MATCH_CHECK_SUCCESS
+  }
+}
+
+function queryContentMatchCheckFailure(error) {
+  return {
+    error,
+    type: QUERY_CONTENT_MATCH_CHECK_FAILURE
+  }
+}
+
+export function submitQueryContentMatchCheck() {
+  return (dispatch, getState) => {
+    const state = getState();
+    let content = state.p1.testTextString;
+    let query = state.p1.queryString;
+    if (!content || !query) {
+      return;
+    }
+
+    dispatch(queryContentMatchCheckRequest());
+
+    let csrfToken = $('meta[name="csrf-token"]').attr('content');
+    return fetch('/listeners/matches_query', {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+      body: JSON.stringify({
+        content,
+        query,
+      }),
+    }).then(
+      response => response.json(),
+      error => dispatch(queryContentMatchCheckFailure(error)),
+    ).then(
+      json => dispatch(queryContentMatchCheckSuccess(json))
+    );
+  }
 }

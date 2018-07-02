@@ -17,7 +17,7 @@ class Watchers::Reddit::Post
     @id = data['id']
   end
 
-  def text
+  def matchable_text
     "#{title} #{body}"
   end
 

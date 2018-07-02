@@ -1,4 +1,10 @@
 class ListenersController < ApplicationController
+  def matches_query
+    content = params[:content]
+    query = params[:query]
+    render :json => { match: Listener.matches_query?(content, query) }
+  end
+
   def create
     listener = Listener.new(listener_params)
     social_watchers = []

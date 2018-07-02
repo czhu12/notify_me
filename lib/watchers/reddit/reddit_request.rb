@@ -5,7 +5,7 @@ class Watchers::Reddit::RedditRequest
   attr_accessor :subreddit
 
   def self.build_request(subreddit)
-    Watchers::Reddit::RedditClient.new(subreddit)
+    Watchers::Reddit::RedditRequest.new(subreddit)
   end
 
   def initialize(subreddit)
