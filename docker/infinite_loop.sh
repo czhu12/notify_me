@@ -1,4 +1,6 @@
 #!/bin/bash
-RAILS_ENV=production bundle exec rake assets:precompile
-RAILS_ENV=production bundle exec rake db:migrate
-RAILS_ENV=production rails s
+set -e
+NODE_ENV=production RAILS_ENV=production bundle exec rails webpacker:binstubs
+NODE_ENV=production RAILS_ENV=production bundle exec rake assets:precompile
+NODE_ENV=production RAILS_ENV=production bundle exec rake db:migrate
+NODE_ENV=production RAILS_ENV=production rails s

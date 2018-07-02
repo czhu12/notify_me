@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.10.1"
+lock "~> 3.11.0"
 
 set :application, "notify_me"
 set :repo_url, "git@github.com:czhu12/notify_me.git"
