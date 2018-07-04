@@ -2,64 +2,23 @@
 lock "~> 3.11.0"
 
 set :application, "notify_me"
-set :repo_url, "git@github.com:czhu12/notify_me.git"
+set :repo_url, "https://github.com/czhu12/notify_me"
 
 set :ssh_options, {
   forward_agent: true,
   auth_methods: ["publickey"],
-  keys: ["#{Dir.pwd}/.sshaws/keypair.pem"]
 }
-
-
-namespace :deploy do
-  desc 'remove all docker volumes. This is necessary docker volumes ' \
-    'create files as root, therefore needs sudo'
-  task :cleanup do
-    on roles :all do
-      execute "sudo rm -rf #{current_path}/public"
-    end
-  end
-  before "deploy", "deploy:cleanup"
-
-  desc 'build docker instances for web and worker'
-  task :setup do
-    on roles :all do
-      upload! '.env', "#{current_path}/.env"
-      execute "mkdir #{current_path}/log && mkdir #{current_path}/tmp"
-    end
-  end
-  after "deploy", "deploy:setup"
-
-  desc 'build and start docker instances for web and worker'
-  task :stop do
-    on roles :all do
-      execute "docker network prune -f"
-      execute "docker rm -f $(docker ps -aq) || true"
-    end
-  end
-  after "deploy:setup", "deploy:stop"
-
-  desc 'build and start docker instances for web and worker'
-  task :start do
-    on roles :all do
-      execute "cd #{current_path} && docker-compose up --build"
-    end
-  end
-  after "deploy:stop", "deploy:start"
-
-  desc 'install crontab in docker container'
-  task :install_cron do
-    on roles :all do
-      execute "docker exec web whenever --update-crontab -i config/schedule.rb"
-    end
-  end
-end
+set :chruby_ruby, 'ruby-2.3.3'
+set :nginx_use_ssl, true
+set :puma_init_active_record, true
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system')
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/ubuntu/notify_me"
+set :deploy_to, "/home/deploy/notify_me"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
