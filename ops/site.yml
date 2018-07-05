@@ -22,6 +22,7 @@
     - mysql
     - nginx
     - certbot
+    - node
     - ruby
     - rails
     - monit
