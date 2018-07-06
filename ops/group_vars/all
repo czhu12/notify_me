@@ -12,7 +12,7 @@ swap_file_size_kb: 1024
 # General settings
 deploy_dir: /home/deploy/
 deploy_user: deploy
-deploy_password: notifyme070227
+deploy_password: "{{ vault_deploy_password }}"
 deploy_app_name: notify_me
 deploy_server_hostname: utiquelearn.com
 shared_dirs:
@@ -39,8 +39,8 @@ ssh_public_key_files:
   - /Users/chriszhu/.ssh/id_rsa.pub
 
 # MySQL
-mysql_root_db_password: notifyme070227
-mysql_app_db_password: notifyme070227
+mysql_root_db_password: "{{ vault_mysql_root_db_password }}"
+mysql_app_db_password: "{{ vault_mysql_app_db_password }}"
 
 # Ruby
 ruby_install_version: 0.6.1
@@ -48,7 +48,7 @@ chruby_version: 0.3.9
 ruby_version: 2.3.3
 
 # Rails
-rails_secret_key_base: notifyme070227
+rails_secret_key_base: "{{ vault_rails_secret_key_base }}"
 puma_workers: 4
 puma_threads: 4,16
 
@@ -57,3 +57,5 @@ elasticsearch_version: 2.3.1
 
 # Monit
 monit_sidekiq_enabled: true
+stripe_publishable_key: "{{ vault_stripe_publishable_key }}"
+stripe_secret_key: "{{ vault_stripe_secret_key }}"

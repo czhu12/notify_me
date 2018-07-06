@@ -3,6 +3,8 @@
 ---
 - name: Install Rails Server
   hosts: webservers
+  vars_files:
+    - group_vars/vault
   # After initial provisioning, use deploy instead of root
   remote_user: root
   # remote_user: deploy
