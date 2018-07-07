@@ -34,7 +34,7 @@ class ListenersController < ApplicationController
   end
 
   def show
-    @listener = Listener.find_by_token(params[:id])
+    @listener = Listener.find_by_token!(params[:id])
   end
 
   def stripe_params

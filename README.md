@@ -1,24 +1,11 @@
 # README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# TODO
+Build some landing page for each listener created
+- What kind of information do we want to show on this page?
+- Do this on a per LISTENER basis so we can just send them an email.
+- Each listener has sources from
+  1. Hacker News
+    - Story
+    - Comment
+  2. Reddit Stories
+  3. Reddit Comments

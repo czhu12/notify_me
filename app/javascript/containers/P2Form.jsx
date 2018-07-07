@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  changeHackerNewsCheck,
-  changeRedditCheck,
+  toggleHackerNewsCheck,
+  toggleRedditCheck,
   changeSubredditString,
   addSubreddit,
   removeSubreddit,
@@ -22,11 +22,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeHackerNewsCheck: (check) => {
-    dispatch(changeHackerNewsCheck(check.target.checked));
+  onClickHackerNewsCheck: () => {
+    dispatch(toggleHackerNewsCheck());
   },
-  onChangeRedditCheck: (check) => {
-    dispatch(changeRedditCheck(check.target.checked));
+  onClickRedditCheck: (e) => {
+    dispatch(toggleRedditCheck());
   },
   onChangeSubredditString: (e) => {
     dispatch(changeSubredditString(e.target.value));
@@ -49,8 +49,8 @@ const propTypes = {
   subredditString: PropTypes.string.isRequired,
   subreddits: PropTypes.arrayOf(PropTypes.string).isRequired,
   subredditSuggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onChangeHackerNewsCheck: PropTypes.func.isRequired,
-  onChangeRedditCheck: PropTypes.func.isRequired,
+  onClickHackerNewsCheck: PropTypes.func.isRequired,
+  onClickRedditCheck: PropTypes.func.isRequired,
   onChangeSubredditString: PropTypes.func.isRequired,
   onAddSubreddit: PropTypes.func.isRequired,
   onRemoveSubreddit: PropTypes.func.isRequired,
@@ -68,8 +68,8 @@ function P2Form({
   subredditString,
   subreddits,
   subredditSuggestions,
-  onChangeHackerNewsCheck,
-  onChangeRedditCheck,
+  onClickHackerNewsCheck,
+  onClickRedditCheck,
   onChangeSubredditString,
   onAddSubreddit,
   onRemoveSubreddit,
@@ -98,31 +98,31 @@ function P2Form({
   let atLeastOneOptionErrorMessage = validationErrors.atLeastOneOption;
 
   return (
-    <div className={className} id="reddit-form">
+    <div className={className} id="social-channel-form">
       <label className="main-form-input">What Channels?</label>
       <div id="channels">
 
         <div className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            name="hacker_news[enabled]"
-            checked={hackerNewsCheck}
-            onChange={onChangeHackerNewsCheck}
-          />
+          <i
+            style={hackerNewsCheck ? {color: '#ff6600'} : {}}
+            className="fa fa-hacker-news"
+            aria-hidden="true"
+            onClick={onClickHackerNewsCheck}
+          ></i>
+
           <label className="form-check-label">
             Hacker News
           </label>
         </div>
 
         <div className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            name="reddit[enabled]"
-            checked={redditCheck}
-            onChange={onChangeRedditCheck}
-          />
+          <i
+            style={redditCheck ? {color: '#ff6314'} : {}}
+            className="fa fa-reddit-square"
+            aria-hidden="true"
+            onClick={onClickRedditCheck}
+          ></i>
+
           <label className="form-check-label">
             Reddit
           </label>

@@ -2,8 +2,8 @@ import {
   NEXT_FORM_STEP,
   CHANGE_QUERY_STRING,
   CHANGE_TEST_TEXT_STRING,
-  CHANGE_HACKER_NEWS_CHECK,
-  CHANGE_REDDIT_CHECK,
+  TOGGLE_HACKER_NEWS_CHECK,
+  TOGGLE_REDDIT_CHECK,
   CHANGE_SUBREDDIT_STRING,
   ADD_SUBREDDIT,
   REMOVE_SUBREDDIT,
@@ -106,17 +106,15 @@ export function changeTestTextString(testTextString) {
   }
 }
 
-export function changeHackerNewsCheck(hackerNewsCheck) {
+export function toggleHackerNewsCheck() {
   return {
-    hackerNewsCheck,
-    type: CHANGE_HACKER_NEWS_CHECK,
+    type: TOGGLE_HACKER_NEWS_CHECK,
   }
 }
 
-export function changeRedditCheck(redditCheck) {
+export function toggleRedditCheck() {
   return {
-    redditCheck,
-    type: CHANGE_REDDIT_CHECK,
+    type: TOGGLE_REDDIT_CHECK,
   }
 }
 

@@ -2,8 +2,8 @@ import {
   NEXT_FORM_STEP,
   CHANGE_QUERY_STRING,
   CHANGE_TEST_TEXT_STRING,
-  CHANGE_HACKER_NEWS_CHECK,
-  CHANGE_REDDIT_CHECK,
+  TOGGLE_HACKER_NEWS_CHECK,
+  TOGGLE_REDDIT_CHECK,
   CHANGE_SUBREDDIT_STRING,
   ADD_SUBREDDIT,
   REMOVE_SUBREDDIT,
@@ -81,13 +81,13 @@ function p2Reducer(state={
   subredditSuggestionsLoading: false
 }, action) {
   switch(action.type) {
-    case CHANGE_HACKER_NEWS_CHECK:
+    case TOGGLE_HACKER_NEWS_CHECK:
       return Object.assign({}, state, {
-        hackerNewsCheck: action.hackerNewsCheck,
+        hackerNewsCheck: !state.hackerNewsCheck,
       });
-    case CHANGE_REDDIT_CHECK:
+    case TOGGLE_REDDIT_CHECK:
       return Object.assign({}, state, {
-        redditCheck: action.redditCheck,
+        redditCheck: !state.redditCheck,
       });
     case CHANGE_SUBREDDIT_STRING:
       return Object.assign({}, state, {
