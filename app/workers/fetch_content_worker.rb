@@ -1,7 +1,7 @@
 class FetchContentWorker
   include Sidekiq::Worker
   include RateLimitHelper
-  sidekiq_options :retry => 1
+  sidekiq_options :retry => 1, :backtrace => true
 
   def perform(args)
     watcher = get_watcher(args['social_watcher_id'])
