@@ -1,4 +1,6 @@
 class ListenersController < ApplicationController
+  include ListenersHelper
+
   def matches_query
     content = params[:content]
     query = params[:query]

@@ -1,5 +1,6 @@
 class Listener < ApplicationRecord
   has_many :social_watchers
+  has_many :alerts, :through => :social_watchers
   ALLOWED_TOKENS = [
     '|', # and
     ',', # or
@@ -27,8 +28,9 @@ class Listener < ApplicationRecord
         content.include?(and_match)
       end
 
-      return true if contains_all
+      return or_match if contains_all
     end
+
     false
   end
 

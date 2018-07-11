@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216034034) do
+ActiveRecord::Schema.define(version: 20180710071026) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer "social_watcher_id"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20180216034034) do
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "permalink"
+    t.string "username"
+    t.string "user_permalink"
     t.index ["data_id"], name: "index_alerts_on_data_id"
     t.index ["social_watcher_id"], name: "index_alerts_on_social_watcher_id"
   end

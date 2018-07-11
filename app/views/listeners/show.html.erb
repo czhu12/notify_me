@@ -1,30 +1,81 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    Notify Me
+  </a>
+</nav>
+
 <div class="container">
+  <h2 class="text-center">"<%= @listener.query %>"</h2>
   <div class="row">
-    <div class="col-xs-12">
-      <%= @listener.query %>
-      <% @listener.social_watchers.each do |watcher| %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Hacker News</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-          </ul>
-          <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div>
+    <div class="col-md-4 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title center">45</h3>
         </div>
 
-        <% if watcher.reddit? %>
-          Reddit
-        <% elsif watcher.hacker_news_story? %>
-          Hacker News
+        <div class="card-footer text-center">
+          Notifications Sent
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title center">2 hours ago</h3>
+        </div>
+
+        <div class="card-footer text-center">
+          Last Sent 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div id="notifications-list">
+        <% if @listener.alerts.count == 0 %>
+          Nothing found yet...
         <% end %>
-      <% end %>
+        <% @listener.alerts.order('created_at DESC').each do |alert| %>
+          <div class="card">
+            <div class="card-body">
+              <% highlighted_texts(alert.text, @listener.query).each do |text| %>
+                <% if text[:bolded] %>
+                  <b><%= text[:text] %></b>
+                <% else %>
+                  <%= text[:text] %>
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="card-footer">
+              <span>
+              <% if alert.social_watcher.hacker_news_story? %>
+                <i class="fa fa-hacker-news hacker-news-color" aria-hidden="true"></i>
+              <% else %>
+                <i class="fa fa-reddit-square reddit-color" aria-hidden="true"></i>
+              <% end %>
+              </span>
+
+              <span class="pull-right text-muted">
+                <span style="margin-right: 20px;">
+                  <% if alert.user_permalink %>
+                    <a href="<%= alert.user_permalink %>"><%= alert.username %></a>
+                  <% else %>
+                    <%= alert.username %>
+                  <% end %>
+                </span>
+                <a href="<%= alert.permalink %>" target="_blank">
+                  <%= time_difference_in_words(Time.now - 15.days, Time.now) %>
+                </a>
+              </span>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
