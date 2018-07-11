@@ -1,4 +1,4 @@
-server 'utiquelearn.com', user: 'deploy', roles: %w{web worker}
+server 'utiquelearn.com', user: 'deploy', roles: %w(web app db)
 
 # server-based syntax
 # ======================

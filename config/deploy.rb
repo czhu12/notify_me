@@ -8,6 +8,7 @@ set :ssh_options, {
   forward_agent: true,
   auth_methods: ["publickey"],
 }
+set :log_level, :debug
 set :chruby_ruby, 'ruby-2.3.3'
 set :nginx_use_ssl, true
 set :puma_init_active_record, true
