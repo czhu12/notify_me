@@ -72,10 +72,14 @@ class Watchers::HackerNews::Story
     urls = kids.map { |item_id| "https://hacker-news.firebaseio.com/v0/item/#{item_id}.json" }
     requests = ParallelRequests.fetch_parallel(urls)
     requests.map do |url, response|
-      body = JSON.parse(response.body)
-      comment = Watchers::HackerNews::Comment.parse(body)
-      comment
-    end
+      begin
+        body = JSON.parse(response.body)
+        comment = Watchers::HackerNews::Comment.parse(body)
+        comment
+      rescue
+        nil
+      end
+    end.reject(&:nil?)
   end
 
   def comments

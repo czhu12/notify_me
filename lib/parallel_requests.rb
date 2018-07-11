@@ -16,6 +16,7 @@ class ParallelRequests
             end
           end
         end
+        Thread.exit
       end
     end
 
