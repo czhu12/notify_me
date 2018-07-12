@@ -18,6 +18,8 @@ class Watchers::Reddit::RedditRequest
     body['data']['children'].map do |post|
       Watchers::Reddit::Post.parse(post)
     end
+  rescue
+    []
   end
 
   def recent_comments
@@ -26,6 +28,8 @@ class Watchers::Reddit::RedditRequest
     body['data']['children'].map do |comment|
       Watchers::Reddit::Comment.parse(comment)
     end
+  rescue
+    []
   end
 
   def top_posts
@@ -34,6 +38,8 @@ class Watchers::Reddit::RedditRequest
     body['data']['children'].map do |post|
       Watchers::Reddit::Post.parse(post)
     end
+  rescue
+    []
   end
 
   def get(url)
