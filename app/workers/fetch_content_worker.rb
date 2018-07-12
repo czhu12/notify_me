@@ -17,6 +17,7 @@ class FetchContentWorker
         next if Alert.exists?(data_id: data.id)
         if watcher.listener.matches_query?(data.matchable_text)
           alert = watcher.create_alert(data)
+          alert.save
         end
       end
     end
