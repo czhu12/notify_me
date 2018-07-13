@@ -72,7 +72,7 @@ class SocialWatcher < ApplicationRecord
   end
 
   def create_alert(data)
-    Alert.new(data_id: data.id, listener: self, data: data)
+    Alert.new(data_id: data.id, social_watcher: self, data: data)
   end
 
   def rate_limit_key
