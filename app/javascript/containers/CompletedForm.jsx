@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { closeModal } from 'actions';
+import { closeModal, resetListenerState } from 'actions';
 
 const mapStateToProps = state => ({
   modalOpen: state.modalReducer.modalOpen,
@@ -9,6 +9,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  clickedCreateAnotherOne: () => {
+    dispatch(closeModal());
+    dispatch(resetListenerState());
+  },
   closeModal: () => {
     dispatch(closeModal());
   },
@@ -18,12 +22,14 @@ const propTypes = {
   modalOpen: PropTypes.bool.isRequired,
   queryString: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
+  clickedCreateAnotherOne: PropTypes.func.isRequired,
 }
 
 function CompletedForm({
   modalOpen,
   queryString,
   closeModal,
+  clickedCreateAnotherOne,
 }) {
   if (modalOpen) {
     $("#completion-modal").modal({backdrop: 'static', keyboard: false});
@@ -49,7 +55,7 @@ function CompletedForm({
             <button
               type="button"
               className="btn btn-primary"
-              onClick={closeModal}
+              onClick={clickedCreateAnotherOne}
               >Create Another One</button>
           </div>
         </div>

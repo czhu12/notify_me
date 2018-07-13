@@ -25,6 +25,7 @@ import {
   QUERY_CONTENT_MATCH_CHECK_REQUEST,
   QUERY_CONTENT_MATCH_CHECK_SUCCESS,
   QUERY_CONTENT_MATCH_CHECK_FAILURE,
+  RESET_LISTENER_STATE,
 } from './constants/actionTypes';
 
 function hasValidationErrors({p1, p2, p3, mainForm}) {
@@ -329,5 +330,11 @@ export function submitQueryContentMatchCheck() {
     ).then(
       json => dispatch(queryContentMatchCheckSuccess(json))
     );
+  }
+}
+
+export function resetListenerState() {
+  return {
+    type: RESET_LISTENER_STATE,
   }
 }

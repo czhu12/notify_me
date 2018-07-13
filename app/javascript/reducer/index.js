@@ -22,14 +22,18 @@ import {
   QUERY_CONTENT_MATCH_CHECK_REQUEST,
   QUERY_CONTENT_MATCH_CHECK_SUCCESS,
   QUERY_CONTENT_MATCH_CHECK_FAILURE,
+  RESET_LISTENER_STATE,
 } from 'constants/actionTypes';
 
 import { combineReducers } from 'redux';
 
-function mainFormReducer(state={
+let initialMainFormState = {
   formStep: 0,
-}, action) {
+};
+function mainFormReducer(state=initialMainFormState, action) {
   switch(action.type) {
+    case RESET_LISTENER_STATE:
+      return initialMainFormState;
     case NEXT_FORM_STEP:
       return Object.assign({}, state, {
         formStep: Math.max(Math.min(state.formStep + 1, 3), 0),
@@ -39,13 +43,16 @@ function mainFormReducer(state={
   }
 }
 
-function p1Reducer(state={
+let initialP1State = {
   queryString: '',
   testTextString: '',
   queryContentMatch: false,
   queryContentMatchFetching: false,
-}, action) {
+};
+function p1Reducer(state=initialP1State, action) {
   switch(action.type) {
+    case RESET_LISTENER_STATE:
+      return initialP1State;
     case CHANGE_QUERY_STRING:
       return Object.assign({}, state, {
         queryString: action.queryString,
@@ -72,15 +79,18 @@ function p1Reducer(state={
   }
 }
 
-function p2Reducer(state={
+let initialP2State = {
   hackerNewsCheck: false,
   redditCheck: false,
   subredditString: '',
   subreddits: [],
   subredditSuggestions: [],
   subredditSuggestionsLoading: false
-}, action) {
+};
+function p2Reducer(state=initialP2State, action) {
   switch(action.type) {
+    case RESET_LISTENER_STATE:
+      return initialP2State;
     case TOGGLE_HACKER_NEWS_CHECK:
       return Object.assign({}, state, {
         hackerNewsCheck: !state.hackerNewsCheck,
