@@ -1,15 +1,4 @@
 Rails.application.configure do
-
-	config.action_mailer.smtp_settings = {
-		address:              'smtp.gmail.com',
-		port:                 587,
-		domain:               'gmail.com',
-		user_name:            'teamutique@gmail.com',
-		password:             'go070227',
-		authentication:       :plain,
-		enable_starttls_auto: true,
-	}
-
   config.webpacker.check_yarn_integrity = true  # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

@@ -1,6 +1,6 @@
 class AlertMailer < ActionMailer::Base
   include SendGrid
-  default from: "support@notifyme.com"
+  default from: "no-reply@utiquelearn.com"
   layout 'mailer'
 
   def send_alert(alert, opts)

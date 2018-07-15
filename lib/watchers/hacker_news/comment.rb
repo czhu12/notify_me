@@ -9,7 +9,7 @@
 #}
 
 class Watchers::HackerNews::Comment
-  ATTRS = [:id, :author, :kids, :parent, :text, :time]
+  ATTRS = [:id, :author, :kids, :parent, :text, :time, :permalink, :user_permalink]
   attr_accessor(*ATTRS)
 
   def self.parse(data)
@@ -23,6 +23,8 @@ class Watchers::HackerNews::Comment
     @parent = data['parent']
     @text = data['text']
     @time = data['time']
+    @permalink = "https://news.ycombinator.com/item?id=#{id}"
+    @user_permalink = "https://news.ycombinator.com/user?id=#{author}"
   end
 
   def to_hash
@@ -33,6 +35,8 @@ class Watchers::HackerNews::Comment
       parent: @parent,
       text: @text,
       time: @time,
+      permalink: @permalink,
+      user_permalink: @user_permalink,
     }
   end
 

@@ -1,5 +1,5 @@
 class Watchers::Reddit::Comment
-  ATTRS = [:author, :subreddit, :permalink, :url, :body, :score, :id]
+  ATTRS = [:author, :subreddit, :permalink, :url, :body, :score, :id, :user_permalink]
   attr_accessor(*ATTRS)
 
   def self.parse(data)
@@ -14,6 +14,7 @@ class Watchers::Reddit::Comment
     @body = data['body']
     @score = data['score']
     @id = data['id']
+    @user_permalink = "https://www.reddit.com/user/#{author}"
   end
 
   def matchable_text
@@ -29,6 +30,7 @@ class Watchers::Reddit::Comment
       url: url,
       body: body,
       score: score,
+      user_permalink: user_permalink,
     }
   end
 end

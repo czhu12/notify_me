@@ -72,7 +72,14 @@ class SocialWatcher < ApplicationRecord
   end
 
   def create_alert(data)
-    Alert.new(data_id: data.id, social_watcher: self, data: data.to_hash)
+    return Alert.new(
+      data_id: data.id,
+      text: data.matchable_text,
+      permalink: data.permalink,
+      user_permalink: data.user,
+      social_watcher: self,
+      data: data.to_hash, # All other attributes that are potentially relevant but not required
+    )
   end
 
   def rate_limit_key

@@ -57,5 +57,13 @@ elasticsearch_version: 2.3.1
 
 # Monit
 monit_sidekiq_enabled: true
+
+# Secret Keys
 stripe_publishable_key: "{{ vault_stripe_publishable_key }}"
 stripe_secret_key: "{{ vault_stripe_secret_key }}"
+
+sendgrid_username: "{{ vault_sendgrid_username }}"
+sendgrid_password: "{{ vault_sendgrid_password }}"
+
+plivo_auth_id: "{{ vault_plivo_auth_id }}"
+plivo_auth_token: "{{ vault_plivo_auth_token }}"

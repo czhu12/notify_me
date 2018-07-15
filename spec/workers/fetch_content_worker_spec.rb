@@ -26,7 +26,7 @@ RSpec.describe FetchContentWorker do
     )
     allow(social_watcher).to receive(:fetch_data).and_return(reddit_posts)
 
-    expect(social_watcher).to receive(:create_alert).once
+    expect(social_watcher).to receive(:create_alert).and_return(Alert.new)
     worker.perform(
       rate_limit_key: 'key',
       rate_limit_time: 0,
