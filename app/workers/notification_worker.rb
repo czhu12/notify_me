@@ -13,7 +13,7 @@ class NotificationWorker
     ).notify
   end
 
-  def get_watcher(alert_id)
+  def get_alert(alert_id)
     Alert.find(alert_id)
   end
 end

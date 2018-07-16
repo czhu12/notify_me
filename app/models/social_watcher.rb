@@ -77,7 +77,7 @@ class SocialWatcher < ApplicationRecord
       data_id: data.id,
       text: data.matchable_text,
       permalink: data.permalink,
-      user_permalink: data.user,
+      user_permalink: data.user_permalink,
       social_watcher: self,
       data: data.to_hash, # All other attributes that are potentially relevant but not required
     )
