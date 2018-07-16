@@ -9,7 +9,7 @@ class Watchers::Reddit::Post
   def initialize(data)
     @author = data['author']
     @subreddit = data['subreddit']
-    @permalink = data['permalink']
+    @permalink = "https://reddit.com/#{data['permalink']}"
     @url = data['url']
     @title = data['title']
     @body = data['selftext']

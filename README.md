@@ -10,6 +10,10 @@ Build some landing page for each listener created
   2. Reddit Stories
   3. Reddit Comments
   Lets just show a historical feed since thats what you'd get from your phone/email
+- Build some way to stop a listener.
+- Send out initial email when someone subscribes to a new listener.
+  1. This should have a link to manage the listener
+  2. Bookmark this email/text to cancel the listener.
 
 # Sources Supported
 ### CURRENTLY

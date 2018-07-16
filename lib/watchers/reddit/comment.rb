@@ -9,7 +9,7 @@ class Watchers::Reddit::Comment
   def initialize(data)
     @author = data['author']
     @subreddit = data['subreddit']
-    @permalink = data['permalink']
+    @permalink = "https://reddit.com/#{data['permalink']}"
     @url = data['link_permalink']
     @body = data['body']
     @score = data['score']
