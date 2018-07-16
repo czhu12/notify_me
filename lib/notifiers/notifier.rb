@@ -20,30 +20,26 @@ class Notifier
   end
 
   def send_email
-    AlertMailer.send_alert(alert, {to: email, subject: email_subject(alert)}).deliver_now
+    AlertMailer.send_alert(
+      alert,
+      {to: email, subject: message(alert)},
+    ).deliver_now
     Rails.logger.info("Sent email to #{email}")
   end
 
   def send_text_message
-    Rails.logger.info("Sent text message to #{phone_number}")
     @text_client.messages.create(
       Rails.application.secrets[:plivo_phone_number],
       [phone_number],
-      text_message(alert),
+      message(alert),
     )
+    Rails.logger.info("Sent text message to #{phone_number}")
   end
 
-  def subject
-  end
-
-  def text
-  end
-
-  def text_message(alert)
+  def message(alert)
     query = alert.social_watcher.listener.query
-    "czhu12 mentioned `#{query}` in https://news.ycombinator.com/item?id=17531916"
-  end
-
-  def email_subject(alert)
+    username = alert.username
+    permalink = alert.permalink
+    "#{username} mentioned `#{query}` in #{permalink}"
   end
 end

@@ -18,6 +18,9 @@ class FetchContentWorker
         if watcher.listener.matches_query?(data.matchable_text)
           alert = watcher.create_alert(data)
           alert.save
+          NotificationWorker.perform_async({
+            'alert_id' => alert.id,
+          })
         end
       end
     end
