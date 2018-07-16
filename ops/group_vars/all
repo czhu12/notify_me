@@ -67,3 +67,4 @@ sendgrid_password: "{{ vault_sendgrid_password }}"
 
 plivo_auth_id: "{{ vault_plivo_auth_id }}"
 plivo_auth_token: "{{ vault_plivo_auth_token }}"
+plivo_phone_number: "{{ vault_plivo_phone_number }}"

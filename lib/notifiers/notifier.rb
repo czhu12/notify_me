@@ -41,7 +41,7 @@ class Notifier
 
   def text_message(alert)
     query = alert.social_watcher.listener.query
-    "czhu12 mentioned `amazon|tech|interview|` in https://news.ycombinator.com/item?id=17531916"
+    "czhu12 mentioned `#{query}` in https://news.ycombinator.com/item?id=17531916"
   end
 
   def email_subject(alert)
