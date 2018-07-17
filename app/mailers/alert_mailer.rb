@@ -8,4 +8,11 @@ class AlertMailer < ActionMailer::Base
 
     mail(to: opts[:to], subject: opts[:subject])
   end
+
+  def registered_listener(listener, opts)
+    return unless listener.email
+    @listener = listener
+
+    mail(to: listener.email, subject: opts[:subject])
+  end
 end

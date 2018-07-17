@@ -1,6 +1,0 @@
-<row>
-  <columns large="12" style="color: blue;">Notification for `<%= @alert.social_watcher.listener.query %>`</columns>
-</row>
-<row>
-  <columns large="12"></columns>
-</row>
