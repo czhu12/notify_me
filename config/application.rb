@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Notifyme
   class Application < Rails::Application
+    APP_NAME = "Utique Learn"
+    APP_DOMAIN = "https://utiquelearn.com"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
     config.autoload_paths << "#{Rails.root}/lib"

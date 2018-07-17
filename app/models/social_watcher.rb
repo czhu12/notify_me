@@ -106,4 +106,12 @@ class SocialWatcher < ApplicationRecord
     end
     1
   end
+
+  def source_name
+    if hacker_news_story?
+      'Hacker News'
+    else
+      'Reddit'
+    end
+  end
 end

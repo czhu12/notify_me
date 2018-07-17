@@ -34,11 +34,15 @@ class Listener < ApplicationRecord
     false
   end
 
+  def permalink
+    "#{Notifyme::Application::APP_DOMAIN}/#{self.token}"
+  end
+
   private
 
   def generate_access_token
     begin
       self.token = SecureRandom.hex
-    end while self.class.exists?(token: token)
+    end while self.class.exists?(token: self.token)
   end
 end

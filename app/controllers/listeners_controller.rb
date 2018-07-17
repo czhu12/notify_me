@@ -1,6 +1,11 @@
 class ListenersController < ApplicationController
   include ListenersHelper
 
+  def email_preview
+    @alert = Alert.last
+    render :template => "alert_mailer/send_alert", :layout => false
+  end
+
   def matches_query
     content = params[:content]
     query = params[:query]
