@@ -111,7 +111,7 @@ class SocialWatcher < ApplicationRecord
     if hacker_news_story?
       'Hacker News'
     else
-      self.data[:subreddit] || 'Reddit'
+      self.metadata["subreddit"] || 'Reddit'
     end
   end
 end
