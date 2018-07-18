@@ -22,7 +22,7 @@ class Notifier
   def send_email
     AlertMailer.send_alert(
       alert,
-      {to: email, subject: message(alert)},
+      {to: email, subject: email_subject(alert)},
     ).deliver_now
     Rails.logger.info("Sent email to #{email}")
   end
@@ -31,12 +31,19 @@ class Notifier
     @text_client.messages.create(
       Rails.application.secrets[:plivo_phone_number],
       [phone_number],
-      message(alert),
+      text_message(alert),
     )
     Rails.logger.info("Sent text message to #{phone_number}")
   end
 
-  def message(alert)
+  def email_subject(alert)
+    query = alert.social_watcher.listener.query
+    username = alert.username
+    permalink = alert.permalink
+    "#{username} mentioned `#{query}` in #{alert.social_watcher.source_name}"
+  end
+
+  def text_message(alert)
     query = alert.social_watcher.listener.query
     username = alert.username
     permalink = alert.permalink

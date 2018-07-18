@@ -1,5 +1,6 @@
 class AlertMailer < ActionMailer::Base
   include SendGrid
+  add_template_helper(ListenersHelper)
   default from: "no-reply@utiquelearn.com"
   layout 'mailer'
 
