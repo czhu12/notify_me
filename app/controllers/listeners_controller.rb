@@ -29,6 +29,9 @@ class ListenersController < ApplicationController
     if all_valid and listener.save
       social_watchers.each { |w| w.save }
       charge(stripe_params[:email], stripe_params[:id])
+      CreateListenerWorker.perform_async({
+        listener_id: listener.id,
+      })
       render :json => { success: true, listener: listener }
     else
       puts listener.errors.to_a

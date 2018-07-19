@@ -38,6 +38,10 @@ class Listener < ApplicationRecord
     "#{Notifyme::Application::APP_DOMAIN}/#{self.token}"
   end
 
+  def source_names
+    @source_names ||= self.social_watchers.map { |watcher| watcher.source_name }
+  end
+
   private
 
   def generate_access_token
