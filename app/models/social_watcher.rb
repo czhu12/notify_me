@@ -30,7 +30,7 @@ class SocialWatcher < ApplicationRecord
 
   validates_inclusion_of :source, :in => ALLOWED_SOURCES
   validates_presence_of :source
-  validates_presence_of :listener_id
+  validates_presence_of :listener
   validate :validate_metadata
 
   def validate_metadata
