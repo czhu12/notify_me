@@ -5,3 +5,4 @@ production:
   username: {{ deploy_app_name }}
   password: {{ mysql_app_db_password }}
   host: localhost
+  pool: 20

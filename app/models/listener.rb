@@ -1,5 +1,5 @@
 class Listener < ApplicationRecord
-  has_many :social_watchers
+  has_many :social_watchers, :dependent => :destroy
   has_many :alerts, :through => :social_watchers
   ALLOWED_TOKENS = [
     '|', # and

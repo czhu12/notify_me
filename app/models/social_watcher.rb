@@ -25,7 +25,7 @@ class SocialWatcher < ApplicationRecord
   }
 
   belongs_to :listener
-  has_many :alerts
+  has_many :alerts, :dependent => :destroy
   serialize :metadata, Hash
 
   validates_inclusion_of :source, :in => ALLOWED_SOURCES
